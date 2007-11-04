@@ -1,0 +1,80 @@
+<!--
+/**
+ * Copyright 2007 Gerard Toonstra
+ *
+ * This file is part of the jXssProtect library.
+ *
+ * jXssProtect is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * jXssProtect is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Project Dune; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+-->
+
+<project name="jXssProtect" default="dist" basedir=".">
+    <description>
+        XSS protection library for Java
+    </description>
+
+<echo message="Reading from ${user.home}/dune.properties"/>
+	
+<property file="${user.home}/dune.properties"/>
+
+<property name="src" location="src"/>
+<property name="grammar" location="grammar"/>
+<property name="build" location="build"/>
+<property name="dist" location="dist"/>
+<property name="inclib" location="lib"/>
+
+<target name="clean" description="clean up">
+  <delete dir="${build}"/>
+  <delete dir="${dist}"/>
+</target>
+	
+<target name="init">
+    <tstamp/>
+	
+	<mkdir dir="${build}"/>
+	
+	<path id="build.path">
+	    <fileset dir="${inclib}">
+	        <include name="*.jar"/>
+	    </fileset>
+	</path>		
+	
+</target>
+
+<target name="compile"
+	description="compile the source"
+	depends="init">
+
+  <java fork="true" classname="antlr.Tool">
+	  	<classpath refid="build.path"/>
+		<arg value="-o"/> 
+	   	<arg value="${src}/com/blogspot/radialmind/xss"/> 	
+  	  	<arg value="${grammar}/xssProtect.g"/>
+  </java>
+	
+</target>
+
+<target name="dist" 
+	description="generate the distribution"
+	depends="compile">
+	
+ 	<mkdir dir="${dist}"/>
+    <jar jarfile="${dist}/xssProtect.jar" basedir="${build}"/>
+
+</target>
+
+
+</project>
+
