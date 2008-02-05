@@ -22,4 +22,5 @@ public String protectAgainstXSS( String html ) {
     } catch (HandlingException e) {
         // Handle the error here in accordance with your coding policies...
     }
+}
 }}}
