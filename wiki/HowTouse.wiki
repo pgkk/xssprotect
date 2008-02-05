@@ -1,5 +1,5 @@
 #summary Explains the usage of the library
-#labels Phase-Implementation,Featured
+#labels Featured,Phase-Implementation
 
 = XSS Protect Usage =
 
@@ -9,16 +9,17 @@ First:
 The following code shows an example usage of the library within your application:
 
 {{{
-StringReader reader = new StringReader( html );
-StringWriter writer = new StringWriter();
+public String protectAgainstXSS( String html ) {
+    StringReader reader = new StringReader( html );
+    StringWriter writer = new StringWriter();
 
-try {
-	HTMLParser.process( reader, writer, new XSSFilter(), true );
-	String buffer = new String( writer.toString() );
-	System.out.println( buffer );
-	assertEquals( result, buffer );
-} catch (HandlingException e) {
-	e.printStackTrace();
-	fail( e.getMessage() );
-}
+    try {
+        // Parse incoming string from the "html" variable
+        HTMLParser.process( reader, writer, new XSSFilter(), true );
+
+        // Return the parsed and cleaned up string
+        return writer.toString();
+    } catch (HandlingException e) {
+        // Handle the error here in accordance with your coding policies...
+    }
 }}}
