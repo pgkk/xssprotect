@@ -5,6 +5,8 @@
 
 First:
 * Copy the xssProtect.jar to your lib directory where your app can find it.
+* Download and include the latest version of ANTLR runtime v3 (antlr-runtime-3.0.1.jar) from http://www.antlr.org/download.html.
+* Make sure to include the antlr runtime on the classpath when you run your application.
 
 The following code shows an example usage of the library within your application:
 
