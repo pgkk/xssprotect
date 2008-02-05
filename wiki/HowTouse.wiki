@@ -1,0 +1,24 @@
+#summary Explains the usage of the library
+#labels Phase-Implementation,Featured
+
+= XSS Protect Usage =
+
+First:
+* Copy the xssProtect.jar to your lib directory where your app can find it.
+
+The following code shows an example usage of the library within your application:
+
+{{{
+StringReader reader = new StringReader( html );
+StringWriter writer = new StringWriter();
+
+try {
+	HTMLParser.process( reader, writer, new XSSFilter(), true );
+	String buffer = new String( writer.toString() );
+	System.out.println( buffer );
+	assertEquals( result, buffer );
+} catch (HandlingException e) {
+	e.printStackTrace();
+	fail( e.getMessage() );
+}
+}}}
