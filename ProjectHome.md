@@ -1,0 +1,5 @@
+The purpose of this library is to filter a user input string in order to clean it from (known) XSS attacks. The approach in this library uses a parser to create a tree of HTML tags, which are slightly cleaned up for better processing (tag-matching and so on). The parser then calls to a pluggable filter interface implementation, which is responsible for filtering out improper HTML attributes or XSS attacks. The caller then gets a string back that is clean of known attacks and can be used within the application.
+
+You can also use this library to just create a tree of the HTML and manipulate it. Note however that it isn't necessarily very kind to very bad HTML, you'll need to experiment to see if that'd suit your needs. The implementation is aimed to be used against "designMode" browser editing, which emits relatively clean HTML as compared to some HTML pages I have seen.
+
+You can derive from an existing standard XSS filter or develop your own. Unit test framework included against the XSS attack vector list as developed in: http://ha.ckers.org/xss.html
